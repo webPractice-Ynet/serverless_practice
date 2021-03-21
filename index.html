@@ -15,8 +15,53 @@
         <header>
             <h1 class="text-center">Hello Wolrd</h1>
         </header>
-        <main></main>
+        <main>
+            <form class="c-Form">
+                <div class="text-center mt-5">
+                    <input type="text" name="name" placeholder="名前を入力してください。">
+                </div>
+                <div class="text-center mt-5">
+                    <button class="a-Submit">Ajax通信開始</button>
+                </div>
+            </form>
+        </main>
     </article>
     <footer></footer>
+
+    <script>
+        
+        $(".c-Form .a-Submit").on("click", function(e){
+            e.preventDefault();
+            sendForm();
+        });
+
+        async function sendForm () { 
+            let name = $('[name=name]').val();
+            await post({
+                name: name
+            });
+        }
+
+        function post(form_data){
+            return new Promise(function(resolve, reject) {
+                $.ajax({
+                    url: 'https://1dtpncdx3c.execute-api.ap-northeast-1.amazonaws.com/main',//API GateWayのURLを貼り付け
+                    type:'post',
+                    data: JSON.stringify(form_data),
+                    dataType: "json",
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                }).then(
+                    function(data){
+                        alert("通信：成功");
+                    },
+                    function(data) {
+                        alert("通信：失敗");
+                    }
+                );
+            });
+        }
+    </script>
 </body>
 </html>
