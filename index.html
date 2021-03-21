@@ -49,9 +49,6 @@
                     type:'post',
                     data: JSON.stringify(form_data),
                     dataType: "json",
-                    xhrFields: {
-                        withCredentials: true
-                    },
                 }).then(
                     function(data){
                         alert("通信：成功");
