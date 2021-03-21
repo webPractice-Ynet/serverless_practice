@@ -28,21 +28,30 @@
     </article>
     <footer></footer>
 
+
+    <!-- invisbleRecaptchaのスクリプトを読み込む。クエリに公開キーを仕込む -->
+    <script src="https://www.google.com/recaptcha/api.js?render=6LdNqYgaAAAAAHvlcA8yJVeEFO2Y2-c9Os6j_75H"></script>
     <script>
         
+        let recaptcha, sendForm, post;
+
         $(".c-Form .a-Submit").on("click", function(e){
             e.preventDefault();
             sendForm();
         });
 
-        async function sendForm () { 
-            let name = $('[name=name]').val();
-            await post({
-                name: name
-            });
+        sendForm = async function() { 
+            await recaptcha.boot();
+            if (recaptcha.result) {
+                await post({
+                    name: $('[name=name]').val(),
+                    bot_token: recaptcha.bot_token,
+                    bot_action: recaptcha.bot_action,
+                });
+            }
         }
 
-        function post(form_data){
+        post = function(form_data){
             return new Promise(function(resolve, reject) {
                 $.ajax({
                     url: 'https://1dtpncdx3c.execute-api.ap-northeast-1.amazonaws.com/main/test',//API GateWayのURLを貼り付け
@@ -59,6 +68,38 @@
                 );
             });
         }
+
+        recaptcha = {
+            result: false,
+            bot_token: null,
+            bot_action: null,
+
+            init: function () {
+                this.result = false;
+                this.bot_token = null;
+                this.bot_action = null;
+            },
+
+            boot: function () {
+                let that = this;
+                return grecaptcha.execute('6LdNqYgaAAAAAHvlcA8yJVeEFO2Y2-c9Os6j_75H', {action: 'submit'})//invisbleRecaptchaの公開キー
+                    .then(
+                        function(token) {
+                            that.init();
+                            //サーバ側の認証で使用します。
+                            that.bot_token = token;
+                            that.bot_action = "submit";
+                            that.result = true;
+                        },
+                        function () {
+                            that.init();
+                            alert("不正なアクセスです。");
+                            recaptcha_result = false;
+                        }
+                    );
+            }
+        }
+
     </script>
 </body>
 </html>
