@@ -45,7 +45,7 @@
         function post(form_data){
             return new Promise(function(resolve, reject) {
                 $.ajax({
-                    url: 'https://1dtpncdx3c.execute-api.ap-northeast-1.amazonaws.com/main',//API GateWayのURLを貼り付け
+                    url: 'https://1dtpncdx3c.execute-api.ap-northeast-1.amazonaws.com/main/test',//API GateWayのURLを貼り付け
                     type:'post',
                     data: JSON.stringify(form_data),
                     dataType: "json",
