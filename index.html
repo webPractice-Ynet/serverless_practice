@@ -14,9 +14,38 @@
     <article>
         <header>
             <h1 class="text-center">Hello Wolrd</h1>
+            <form class="c-Form">
+                <button class="a-Btn">Ajax通信開始</button>
+            </form>
         </header>
         <main></main>
     </article>
     <footer></footer>
+
+    <script>
+        //API GateWayのURLを貼り付け
+        let url = 'https://1dtpncdx3c.execute-api.ap-northeast-1.amazonaws.com/main';
+
+        function post(form_data){
+            return new Promise(function(resolve, reject) {
+                $.ajax({
+                    url: "url",
+                    type:'post',
+                    data: JSON.stringify(form_data),
+                    dataType: "json",
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                }).then(
+                    function(data){
+                        alert("通信：成功");
+                    },
+                    function(data) {
+                        alert("通信：失敗");
+                    }
+                );
+            });
+        }
+    </script>
 </body>
 </html>
