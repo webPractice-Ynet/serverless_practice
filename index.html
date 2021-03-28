@@ -75,19 +75,18 @@
                     type:'post',
                     data: JSON.stringify(form_data),
                     dataType: "json",
-                }).then(
-                    function(data){
-                        let body = data.body;
-                        if (body.result === true) {
-                            alert("通信：成功");
-                        } {
-                            alert("通信：失敗 : " + body.message);
-                        }
-                    },
-                    function(data) {
-                        alert("通信：失敗");
+                })
+                .done(function(data){
+                    let body = data.body;
+                    if (body.result === true) {
+                        alert("通信：成功");
+                    } {
+                        alert("通信：失敗 : " + body.message);
                     }
-                );
+                })
+                .fail(function(data) {
+                    alert("通信：失敗");
+                });
             });
         }
 
@@ -105,20 +104,18 @@
             boot: function () {
                 let that = this;
                 return grecaptcha.execute('6LdNqYgaAAAAAHvlcA8yJVeEFO2Y2-c9Os6j_75H', {action: 'submit'})//invisbleRecaptchaの公開キー
-                    .then(
-                        function(token) {
-                            that.init();
-                            //サーバ側の認証で使用します。
-                            that.bot_token = token;
-                            that.bot_action = "submit";
-                            that.result = true;
-                        },
-                        function () {
-                            that.init();
-                            alert("不正なアクセスです。");
-                            recaptcha_result = false;
-                        }
-                    );
+                    .done(function(token) {
+                        that.init();
+                        //サーバ側の認証で使用します。
+                        that.bot_token = token;
+                        that.bot_action = "submit";
+                        that.result = true;
+                    })
+                    .fail(function () {
+                        that.init();
+                        alert("不正なアクセスです。");
+                        recaptcha_result = false;
+                    });
             }
         }
 
