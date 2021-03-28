@@ -1,0 +1,77 @@
+p {
+  margin: 0;
+}
+
+.f-Top .c-Form {
+  max-width: 40vw;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.m-Article .c-Header {
+  height: 50vh;
+  background: url(/images/top.jpeg);
+  background-size: cover;
+  position: relative;
+}
+
+.m-Article .c-Header .c-Header__text-wrapper {
+  height: 100%;
+}
+
+.m-Article .c-Header .c-Header__text-wrapper .a-Title {
+  color: #fff;
+  transform: translate(0);
+}
+
+.m-Article .c-Header::before {
+  content: "";
+  position: absolute;
+  background: #333;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: block;
+  height: 100%;
+  width: 100%;
+  opacity: 0.7;
+}
+
+.m-Main {
+  margin-top: 40px;
+}
+
+.c-Nav {
+  z-index: 100;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 60px;
+}
+
+.c-Nav > * {
+  height: 100%;
+}
+
+.c-Nav * {
+  list-style: none;
+  margin-bottom: 0;
+  text-align: center;
+}
+
+.c-Nav a {
+  color: #fff;
+  display: inline-block;
+}
+
+.c-Nav .c-Nav_list {
+  height: 100%;
+  align-items: center;
+}
+
+.c-Form__inner .a-Input {
+  width: 100%;
+}
