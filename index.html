@@ -76,7 +76,11 @@
                     dataType: "json",
                 }).then(
                     function(data){
-                        alert("通信：成功");
+                        if (data.result === true) {
+                            alert("通信：成功");
+                        } {
+                            alert("通信：失敗 : " + data.message);
+                        }
                     },
                     function(data) {
                         alert("通信：失敗");
