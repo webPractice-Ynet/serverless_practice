@@ -83,8 +83,7 @@
                     } {
                         alert("通信：失敗 : " + body.message);
                     }
-                })
-                .fail(function(data) {
+                }).fail(function(data) {
                     alert("通信：失敗");
                 });
             });
@@ -104,18 +103,20 @@
             boot: function () {
                 let that = this;
                 return grecaptcha.execute('6LdNqYgaAAAAAHvlcA8yJVeEFO2Y2-c9Os6j_75H', {action: 'submit'})//invisbleRecaptchaの公開キー
-                    .done(function(token) {
-                        that.init();
-                        //サーバ側の認証で使用します。
-                        that.bot_token = token;
-                        that.bot_action = "submit";
-                        that.result = true;
-                    })
-                    .fail(function () {
-                        that.init();
-                        alert("不正なアクセスです。");
-                        recaptcha_result = false;
-                    });
+                    .then(
+                        function(token) {
+                            that.init();
+                            //サーバ側の認証で使用します。
+                            that.bot_token = token;
+                            that.bot_action = "submit";
+                            that.result = true;
+                        },
+                        function () {
+                            that.init();
+                            alert("不正なアクセスです。");
+                            recaptcha_result = false;
+                        }
+                    );
             }
         }
 
