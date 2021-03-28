@@ -61,6 +61,7 @@
             if (recaptcha.result) {
                 await post({
                     name: $('[name=name]').val(),
+                    email: $('[name=email]').val(),
                     bot_token: recaptcha.bot_token,
                     bot_action: recaptcha.bot_action,
                 });
